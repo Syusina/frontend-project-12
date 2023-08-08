@@ -2,12 +2,6 @@ import React from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-const BuildPage = (name) => (
-  <>
-    <h3>{name}</h3>
-  </>
-);
-
 const validationSchema = yup.object().shape({
   email: yup.string()
     .required('Required')
@@ -16,7 +10,7 @@ const validationSchema = yup.object().shape({
   .required('Required')
 });
 
-const BuildPageLogin = () => (
+const LoginPage = () => (
   <div>
     <h1>Страница авторизации</h1>
     <Formik
@@ -68,6 +62,4 @@ const BuildPageLogin = () => (
   </div>
 );
 
-export const PageStart = () => BuildPage('Start');
-export const PageLogin = () => BuildPageLogin();
-export const PageNotFound = () => BuildPage('Not Found');
+export default LoginPage;
