@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-constructed-context-values */
+
 import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
@@ -15,8 +17,9 @@ import PrivatePage from './Components/PrivatePage.jsx';
 import PageNotFound from './Components/PageNotFound.jsx';
 import AuthContext from './context/AuthContext.jsx';
 import useAuth from './hooks/useAuth.jsx';
+import { propTypes } from 'react-bootstrap/esm/Image.js';
 
-const AuthProvider = (data) => {
+const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const logIn = () => setLoggedIn(true);
   const logOut = () => {
@@ -25,17 +28,25 @@ const AuthProvider = (data) => {
   };
   return (
     <AuthContext.Provider value={{ loggedIn, logIn, logOut }}>
-      {data.children}
+      {children}
     </AuthContext.Provider>
   );
 };
 
-const PrivateRoute = (data) => {
+AuthProvider.propTypes = {
+  children: propTypes.node,
+};
+
+const PrivateRoute = ({ children }) => {
   const auth = useAuth();
   const location = useLocation();
   return (
-    auth.loggedIn ? data.children : <Navigate to="/login" state={{ from: location }} />
+    auth.loggedIn ? children : <Navigate to="/login" state={{ from: location }} />
   );
+};
+
+PrivateRoute.propTypes = {
+  children: propTypes.node,
 };
 
 const AuthButton = () => {
