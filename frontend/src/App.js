@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-import React, { useState } from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,32 +11,14 @@ import LoginPage from './Components/LoginPage.jsx';
 import Chat from './Components/Chat.jsx';
 import PageNotFound from './Components/PageNotFound.jsx';
 import PrivateRoute from './Components/PrivateRoute.jsx';
-import AuthContext from './context/AuthContext.jsx';
 import AuthButton from './Components/AuthButton.jsx';
-import { propTypes } from 'react-bootstrap/esm/Image.js';
-
-const AuthProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const logIn = () => setLoggedIn(true);
-  const logOut = () => {
-    localStorage.removeItem('userId');
-    setLoggedIn(false);
-  };
-  return (
-    <AuthContext.Provider value={{ loggedIn, logIn, logOut }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
-
-AuthProvider.propTypes = {
-  children: propTypes.node,
-};
+import AuthProvider from './Components/AuthProvider.jsx';
 
 const App = () => (
   <AuthProvider>
+    <div className="d-flex flex-column h-100">
     <Router>
-      <Navbar bg="light" expand="lg">
+      <Navbar bg="white" expand="lg" className="shadow-sm">
         <Nav className="mr-auto">
           <Nav.Link as={Link} to="/">Hexlet Chat</Nav.Link>
         </Nav>
@@ -55,6 +37,7 @@ const App = () => (
           />
         </Routes>
     </Router>
+    </div>
   </AuthProvider>
 );
 
