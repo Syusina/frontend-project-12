@@ -3,14 +3,21 @@ import { propTypes } from 'react-bootstrap/esm/Image.js';
 import AuthContext from '../context/AuthContext';
 
 const AuthProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const logIn = () => setLoggedIn(true);
-  const logOut = () => {
-    localStorage.removeItem('userId');
-    setLoggedIn(false);
+  const userData = JSON.parse(localStorage.getItem('user'));
+  const [user, setUser] = useState(userData || null);
+
+  const logIn = (data) => {
+    localStorage.setItem('user', JSON.stringify(data));
+    setUser(data);
   };
+
+  const logOut = () => {
+    localStorage.clear();
+    setUser(null);
+  };
+
   return (
-    <AuthContext.Provider value={{ loggedIn, logIn, logOut }}>
+    <AuthContext.Provider value={{ user, logIn, logOut }}>
       {children}
     </AuthContext.Provider>
   );

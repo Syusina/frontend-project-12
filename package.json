@@ -21,6 +21,9 @@
   "homepage": "https://github.com/Syusina/frontend-project-12#readme",
   "dependencies": {
     "@hexlet/chat-server": "^1.1.6",
-    "formik": "^2.4.3"
+    "@reduxjs/toolkit": "^1.9.5",
+    "formik": "^2.4.3",
+    "react-redux": "^8.1.2",
+    "react-toastify": "^9.1.3"
   }
 }

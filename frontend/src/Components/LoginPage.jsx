@@ -8,7 +8,7 @@ import routes from '../routes.js';
 import Login from '../img/Login.jpeg';
 
 const LoginPage = () => {
-  const auth = useAuth();
+  const { logIn } = useAuth();
   const [authFailed, setAuthFailed] = useState(false);
   const inputRef = useRef();
   const location = useLocation();
@@ -26,9 +26,8 @@ const LoginPage = () => {
       setAuthFailed(false);
 
       try {
-        const res = await axios.post(routes.loginPath(), values);
-        localStorage.setItem('userId', JSON.stringify(res.data));
-        auth.logIn();
+        const { data } = await axios.post(routes.loginPath(), values);
+        logIn(data);
         const { from } = location.state || { from: { pathname: '/' } };
         navigate(from);
       } catch (err) {

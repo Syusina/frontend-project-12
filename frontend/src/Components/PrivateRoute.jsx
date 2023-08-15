@@ -1,19 +1,15 @@
 
 import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
-import { propTypes } from 'react-bootstrap/esm/Image';
+import Chat from './Chat';
+import LoginPage from './LoginPage';
 
-const PrivateRoute = ({ children }) => {
-  const auth = useAuth();
-  const location = useLocation();
+const PrivateRoute = () => {
+  const { user } = useAuth();
+
   return (
-    auth.loggedIn ? children : <Navigate to="/login" state={{ from: location }} />
+    user ? (<Chat />) : (<LoginPage />)
   );
-};
-
-PrivateRoute.propTypes = {
-  children: propTypes.node,
 };
 
 export default PrivateRoute;
