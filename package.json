@@ -23,7 +23,11 @@
     "@hexlet/chat-server": "^1.1.6",
     "@reduxjs/toolkit": "^1.9.5",
     "formik": "^2.4.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-redux": "^8.1.2",
-    "react-toastify": "^9.1.3"
+    "react-scroll": "^1.8.9",
+    "react-toastify": "^9.1.3",
+    "redux": "^4.2.1"
   }
 }

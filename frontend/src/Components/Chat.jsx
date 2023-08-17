@@ -1,49 +1,45 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import axios from 'axios';
 import Channels from './Channels';
 import Messages from './Messages';
 import useAuth from '../hooks/useAuth';
 import routes from '../routes';
+import { loadChannels } from '../slices/chatSlice';
+import { useDispatch } from 'react-redux';
 
 const Chat = () => {
   const auth = useAuth();
+  const dispatch = useDispatch();
+  const [added, setAdded] = useState(false);
 
-  useEffect(
-    () => {
-      const fetchChat = async (token) => {
-        try {
-          const { data } = await axios.get(routes.usersPath(), {
-            headers: {
-             Authorization: `Bearer ${token}`,
-            },
-         });
-          const { channels } = data;
-          console.log(channels);
-         
+  useEffect(() => {
+    const addChat = async (token) => {
+      try {
+        const { data } = await axios.get(routes.usersPath(), {
+          headers: {
+           Authorization: `Bearer ${token}`,
+          },
+        });
+       
+        dispatch(loadChannels(data));
+        setAdded(true);
       } catch (error) {
-        if (!error.isAxiosError) {
-          console.log('unknown error');
-        }
-        if (error.response.status === 401) {
-          console.log('go to login page');
-        } else {
-          console.log('network error');
-        }
+        console.log(error);
       }
     };
-      fetchChat(auth.user.token);
-  }, []);
+    addChat(auth.user.token);
+  }, [auth, dispatch]);
 
   return (
-
+    added ? (
     <Container className="h-100 my-4 overflow-hidden rounded shadow">
       <Row className="h-100 bg-white flex-md-row"> 
         <Channels />
         <Messages />
        </Row>
     </Container>
-
+    ) : null
   );
 };
 
