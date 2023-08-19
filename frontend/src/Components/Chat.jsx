@@ -39,7 +39,7 @@ const Chat = () => {
       <Row className="h-100 bg-white flex-md-row"> 
         <Channels />
         <Messages />
-       </Row>
+      </Row>
     </Container>
     ) : null
   );

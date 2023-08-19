@@ -57,8 +57,8 @@ const sockets = {
 
 const App = () => (
   <SocketContext.Provider value={sockets}>
-    <AuthProvider>
-      <Provider store={store}>
+    <Provider store={store}>
+      <AuthProvider>
         <div className="d-flex flex-column h-100">
           <Router>
             <Navbar bg="white" expand="lg" className="shadow-sm">
@@ -81,8 +81,8 @@ const App = () => (
             </Routes>
           </Router>
         </div>
-      </Provider>
-    </AuthProvider>
+      </AuthProvider>
+    </Provider>
   </SocketContext.Provider>
 );
 

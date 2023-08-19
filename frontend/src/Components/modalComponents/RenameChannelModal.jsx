@@ -66,6 +66,7 @@ const RenameChannelModal = () => {
               name="name"
               id="name"
               className="mb-2"
+              placeholder={'Введите новое имя'}
               disabled={formik.isSubmitting}
               value={formik.values.name}
               onChange={formik.handleChange}

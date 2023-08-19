@@ -61,6 +61,7 @@ const NewChannelModal = () => {
               name="name"
               id="name"
               className="mb-2"
+              placeholder={'Введите название канала'}
               disabled={formik.isSubmitting}
               value={formik.values.name}
               onChange={formik.handleChange}
@@ -74,7 +75,7 @@ const NewChannelModal = () => {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={close}>Отменить</Button>
-        <Button variant="primary" onClick={formik.handleSubmit}>Отправить</Button>
+        <Button variant="primary" type="submit" onClick={formik.handleSubmit}>Отправить</Button>
       </Modal.Footer>
     </Modal>
   );

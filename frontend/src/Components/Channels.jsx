@@ -36,7 +36,7 @@ const Channels = () => {
           type="button"
           variant="light"
           size="sm"
-          className="btn btn-outline-primary"
+          className="pb-0 pt-0 btn-outline-primary"
           onClick={addNewChannel}
         >
           <span className="visually-hidden">+</span>
