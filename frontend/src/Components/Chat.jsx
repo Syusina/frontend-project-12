@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import Channels from './Channels';
 import Messages from './Messages';
 import useAuth from '../hooks/useAuth';
 import routes from '../routes';
 import { loadChannels } from '../slices/chatSlice';
-import { useDispatch } from 'react-redux';
+import ModalComponent from './modalComponents/ModalComponent';
 
 const Chat = () => {
   const auth = useAuth();
@@ -34,6 +35,7 @@ const Chat = () => {
   return (
     added ? (
     <Container className="h-100 my-4 overflow-hidden rounded shadow">
+      <ModalComponent />
       <Row className="h-100 bg-white flex-md-row"> 
         <Channels />
         <Messages />
