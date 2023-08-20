@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Col, Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import DropdownToggle from 'react-bootstrap/esm/DropdownToggle';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +9,6 @@ const Channels = () => {
   const { channels, currentChannelId } = useSelector(
     (state) => state.channelsInfo,
   );
-  const bottom = useRef();
   const dispatch = useDispatch();
 
   const changeChannel = (id) => () => {
@@ -33,13 +32,12 @@ const Channels = () => {
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
         <b>Каналы</b>
         <Button 
-          type="button"
           variant="light"
           size="sm"
           className="pb-0 pt-0 btn-outline-primary"
           onClick={addNewChannel}
         >
-          <span className="visually-hidden">+</span>
+          <b><span>+</span></b>
         </Button>
       </div>
 
@@ -51,10 +49,9 @@ const Channels = () => {
         <li className="nav-item w-100" key={id}>
           <Dropdown as={ButtonGroup} className="d-flex">
             <Button 
-              type="button"
               key={id}
               variant={currentChannelId === id ? "secondary" : "light"}
-              className="w-100 rounded-0 text-start"
+              className="w-100 text-start"
               onClick={changeChannel(id)}
             >
               <span className="me-1">#</span>
@@ -72,10 +69,9 @@ const Channels = () => {
       ) : (
         <li className="nav-item w-100" key={id}>
             <Button
-              type="button"
               key={id}
               variant={currentChannelId === id ? "secondary" : "light"}
-              className="w-100 rounded-0 text-start"
+              className="w-100 text-start"
               onClick={changeChannel(id)}
             >
               <span className="me-1">#</span>
@@ -83,7 +79,7 @@ const Channels = () => {
             </Button>
           </li>
       )))}
-        <li ref={bottom} />
+       
       </ul>
     </Col>
   );

@@ -5,7 +5,7 @@ import { Button, Form, Container, Row, Col, Card } from 'react-bootstrap';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
-import Login from '../img/Login.jpeg';
+import LoginImg from '../img/LoginImg.jpeg';
 
 const LoginPage = () => {
   const { logIn } = useAuth();
@@ -49,7 +49,7 @@ const LoginPage = () => {
           <Card className="shadow-sm">
             <Card.Body className="row p-5">
               <Col className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                <Card.Img className="rounded-circle" alt="Picture" src={Login} />
+              <img className="rounded-circle" src={LoginImg} alt="Регистрация" /> 
               </Col>
             <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
             <h1 className="text-center mb-4">Войти</h1>
@@ -81,7 +81,7 @@ const LoginPage = () => {
                     isInvalid={authFailed}
                     required
                   />
-                  <Form.Control.Feedback type="invalid">the username or password is incorrect</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">Неверные имя пользователя или пароль</Form.Control.Feedback>
                 </Form.Group>
                 <Button type="submit" disabled={formik.isSubmitting} className="w-100 mb-3" variant="outline-primary">Войти</Button>
               </fieldset>
@@ -90,9 +90,7 @@ const LoginPage = () => {
             <Card.Footer className="p-4">
               <div className="text-center">
                 <span>Нет аккаунта? </span>
-                <Link to="/">
-                  Регистрация
-                </Link>
+                <Link to={routes.signupPagePath()}> Регистрация</Link>
               </div>
             </Card.Footer>
           </Card>

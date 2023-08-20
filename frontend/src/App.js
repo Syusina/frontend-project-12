@@ -1,24 +1,19 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-} from 'react-router-dom';
-import { Navbar, Nav } from 'react-bootstrap';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import io from 'socket.io-client';
 import LoginPage from './Components/LoginPage.jsx';
 import Chat from './Components/Chat.jsx';
+import Navigation from './Components/Navigation.jsx';
 import PageNotFound from './Components/PageNotFound.jsx';
 import PrivateRoute from './Components/PrivateRoute.jsx';
-import AuthButton from './Components/AuthButton.jsx';
 import AuthProvider from './Components/AuthProvider.jsx';
 import store from './slices/index.js';
 import SocketContext from './context/SocketContext.jsx';
-import io from 'socket.io-client';
 import { addChannel, renameChannel, removeChannel } from './slices/chatSlice.js';
 import { addMessages } from './slices/messagesSlice.js';
+import SignUp from './Components/SugnUp.jsx';
 
 const socket = io();
 
@@ -61,15 +56,11 @@ const App = () => (
       <AuthProvider>
         <div className="d-flex flex-column h-100">
           <Router>
-            <Navbar bg="white" expand="lg" className="shadow-sm">
-              <Nav className="mr-auto">
-                <Nav.Link as={Link} to="/">Hexlet Chat</Nav.Link>
-              </Nav>
-              <AuthButton />
-            </Navbar>
+            <Navigation />
             <Routes>
               <Route path="/login" element={<LoginPage />} />
               <Route path="*" element={<PageNotFound />} />
+              <Route path="/signup" element={<SignUp />} />
               <Route
                 path="/"
                 element={(
