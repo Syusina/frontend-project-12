@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import leoProfanity from 'leo-profanity';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import useAuth from '../hooks/useAuth';
@@ -14,6 +16,7 @@ const SignUp = () => {
   const auth = useAuth();
   const { logIn } = auth;
   const inputRef = useRef();
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
   const [signFail, setSignFail] = useState();
@@ -41,18 +44,24 @@ const SignUp = () => {
         .required('Обязательное поле')
         .oneOf([yup.ref('password'), null], 'Не совпадает'),
     }),
+
     onSubmit: async ({ username, password }) => {
       try {
         const { data } = await axios.post(routes.signUpPath(), { username, password });
         logIn(data);
         navigate(routes.chatPagePath(), { replace: true });
       } catch (error) {
-         if (!error.isAxiosError) {
-          console.log(error);
+
+        if (!error.isAxiosError) {
+          toast.error(t('error.unknown'));
           return;
-        } if (error.response.status === 409) {
+        }
+        if (error.response.status === 409) {
           setSignFail(true);
           inputRef.current.select();
+          return;
+        } else {
+          toast.error(t('error.network'))
         }
       }
     }
@@ -65,10 +74,10 @@ const SignUp = () => {
           <div className="card shadow-sm">
             <div className="card-body d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
               <div>
-                <img className="rounded-circle" src={SignUpImg} alt="Регистрация" />
+                <img className="rounded-circle" src={SignUpImg} alt={t('login.signup')} />
               </div>
               <Form onSubmit={formik.handleSubmit} className="w-50">
-                <h1 className="text-center mb-4">Регистрация</h1>
+                <h1 className="text-center mb-4">{t('login.signup')}</h1>
                 <Form.Group className="form-floating mb-3">
                   <Form.Control
                     id="username"
@@ -76,7 +85,7 @@ const SignUp = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.username}
-                    placeholder={'Имя пользователя'}
+                    placeholder={t('signup.username')}
                     isInvalid={(formik.errors.username && formik.touched.username) || signFail}
                     ref={inputRef}
                     required
@@ -84,7 +93,7 @@ const SignUp = () => {
                   />
                   <Form.Label htmlFor="username"></Form.Label>
                   <Form.Control.Feedback type="invalid" placement="right">
-                    {formik.errors.username}
+                    {t(formik.errors.username)}
                   </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className="form-floating mb-3">
@@ -96,12 +105,12 @@ const SignUp = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.password}
                     isInvalid={(formik.errors.password && formik.touched.password) || signFail}
-                    placeholder={'Пароль'}
+                    placeholder={t('signup.password')}
                     required
                   />
                   <Form.Label htmlFor="password"></Form.Label>
                   <Form.Control.Feedback type="invalid" placement="right">
-                    {formik.errors.password}
+                    {t(formik.errors.password)}
                   </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className="form-floating mb-3">
@@ -113,12 +122,12 @@ const SignUp = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.confirmPassword}
                     isInvalid={(formik.errors.confirmPassword && formik.touched.repeatPassword) || signFail}
-                    placeholder={'Подтвердите пароль'}
+                    placeholder={t('signup.confirm')}
                     required
                   />
                   <Form.Label htmlFor="confirmPassword"></Form.Label>
                   <Form.Control.Feedback type="invalid" placement="right">
-                    {signFail ? 'Уже существует' : (formik.errors.confirmPassword)}
+                    {signFail ? t('signup.alreadyExists') : t(formik.errors.confirmPassword)}
                   </Form.Control.Feedback>
                 </Form.Group>
                 <Button
@@ -127,7 +136,7 @@ const SignUp = () => {
                   variant="outline-primary"
                   className="w-100"
                 >
-                  Зарегистрироваться
+                  {t('signup.submit')}
                 </Button>
               </Form>
             </div>

@@ -5,6 +5,8 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import leoProfanity from 'leo-profanity';
 import useSocketContext from '../../hooks/useSocketContext';
 import { closeModal } from '../../slices/modalSlice';
@@ -19,6 +21,7 @@ const RenameChannelModal = () => {
   const channel = channels.find(({ id }) => id === channelId);
   const dispatch = useDispatch();
   const inputRef = useRef();
+  const { t } = useTranslation();
 
   const close = () => {
     dispatch(closeModal());
@@ -31,21 +34,25 @@ const RenameChannelModal = () => {
     validationSchema: yup.object({
       name: yup.string()
         .trim()
-        .required('Обязательное поле')
-        .min(3, 'От 3 до 20 символов')
-        .max(20, 'От 3 до 20 символов')
-        .notOneOf(channelsNames, 'Должно быть уникальным'),
+        .required('modals.required')
+        .min(3, 'modals.min')
+        .max(20, 'modals.max')
+        .notOneOf(channelsNames, 'modals.uniq'),
     }),
     onSubmit: async ({ name }) => {
       const cleanedName = leoProfanity.clean(name);
       const data = { name: cleanedName, id: channelId };
       try {
         await renameChannel(data);
-        console.log('Канал переименован');
+        toast.success(t('channels.renamed'));
         formik.resetForm();
         close();
       } catch (error) {
-        console.log(error);
+        if (!error.isAxiosError) {
+          toast.error(t('error.unknown'));
+        } else {
+          toast.error(t('error.network'));
+        }
       }
     },
   });
@@ -57,7 +64,7 @@ const RenameChannelModal = () => {
   return (
     <Modal show={isOpened} onHide={close}>
       <Modal.Header closeButton>
-        <Modal.Title>Переименовать канал</Modal.Title>
+        <Modal.Title>{t('modals.rename')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
@@ -66,7 +73,6 @@ const RenameChannelModal = () => {
               name="name"
               id="name"
               className="mb-2"
-              placeholder={'Введите новое имя'}
               disabled={formik.isSubmitting}
               value={formik.values.name}
               onChange={formik.handleChange}
@@ -74,15 +80,13 @@ const RenameChannelModal = () => {
               isInvalid={formik.errors.name && formik.touched.name}
             />
             <label className="visually-hidden" htmlFor="name"></label>
-            <Form.Control.Feedback type="invalid">
-              {formik.errors.name}
-            </Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{t(formik.errors.name)}</Form.Control.Feedback>
           </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={close}>Отменить</Button>
-        <Button variant="primary" onClick={formik.handleSubmit}>Отправить</Button>
+        <Button variant="secondary" onClick={close}>{t('modals.cancel')}</Button>
+        <Button variant="primary" onClick={formik.handleSubmit}>{t('modals.submit')}</Button>
       </Modal.Footer>
     </Modal>
   );

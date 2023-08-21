@@ -2,6 +2,7 @@ import React from 'react';
 import { Col, Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import DropdownToggle from 'react-bootstrap/esm/DropdownToggle';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { setCurrentChannel } from '../slices/chatSlice';
 import { openModal } from '../slices/modalSlice';
 
@@ -10,6 +11,7 @@ const Channels = () => {
     (state) => state.channelsInfo,
   );
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const changeChannel = (id) => () => {
     dispatch(setCurrentChannel({ id }));
@@ -30,14 +32,14 @@ const Channels = () => {
   return (
     <Col className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
-        <b>Каналы</b>
+        <b>{t('channels.channels')}</b>
         <Button 
           variant="light"
           size="sm"
           className="pb-0 pt-0 btn-outline-primary"
           onClick={addNewChannel}
         >
-          <b><span>+</span></b>
+          <b><span>{t('channels.add')}</span></b>
         </Button>
       </div>
 
@@ -48,21 +50,21 @@ const Channels = () => {
       {channels.map(({ id, name, removable }) => (removable ? (
         <li className="nav-item w-100" key={id}>
           <Dropdown as={ButtonGroup} className="d-flex">
-            <Button 
+            <Button
               key={id}
               variant={currentChannelId === id ? "secondary" : "light"}
               className="w-100 text-start"
               onClick={changeChannel(id)}
             >
-              <span className="me-1">#</span>
+              <span className="me-1">{t('channels.grid')}</span>
               {name}
             </Button>
             <DropdownToggle split className="flex-grow-0" variant="group-veritical">
                 <span className="visually-hidden"></span>
               </DropdownToggle>
               <Dropdown.Menu>
-                <Dropdown.Item onClick={removeChannel(id)}>Удалить</Dropdown.Item>
-                <Dropdown.Item onClick={renameChannel(id)}>Переименовать</Dropdown.Item>
+                <Dropdown.Item onClick={removeChannel(id)}>{t('channels.remove')}</Dropdown.Item>
+                <Dropdown.Item onClick={renameChannel(id)}>{t('channels.rename')}</Dropdown.Item>
               </Dropdown.Menu>
           </Dropdown>
         </li>
@@ -74,7 +76,7 @@ const Channels = () => {
               className="w-100 text-start"
               onClick={changeChannel(id)}
             >
-              <span className="me-1">#</span>
+              <span className="me-1">{t('channels.grid')}</span>
               {name}
             </Button>
           </li>

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 import Channels from './Channels';
 import Messages from './Messages';
 import useAuth from '../hooks/useAuth';
@@ -13,6 +16,8 @@ const Chat = () => {
   const auth = useAuth();
   const dispatch = useDispatch();
   const [added, setAdded] = useState(false);
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const addChat = async (token) => {
@@ -26,7 +31,15 @@ const Chat = () => {
         dispatch(loadChannels(data));
         setAdded(true);
       } catch (error) {
-        console.log(error);
+        if (!error.isAxiosError) {
+          toast.error(t('error.unknown'));
+          return;
+        }
+        if (error.response.status === 401) {
+          navigate(routes.loginPagePath());
+        } else {
+          toast.error(t('error.network'));
+        }
       }
     };
     addChat(auth.user.token);

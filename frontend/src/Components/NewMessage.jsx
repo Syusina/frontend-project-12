@@ -4,6 +4,8 @@ import * as yup from 'yup';
 import { useSelector } from 'react-redux';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 import filter from 'leo-profanity';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import useSocketContext from '../hooks/useSocketContext';
 import useAuth from '../hooks/useAuth';
 
@@ -13,6 +15,7 @@ const NewMessage = () => {
   const channelId = useSelector(
     (state) => state.channelsInfo.currentChannelId);
   const { user: { username } } = useAuth();
+  const { t } = useTranslation();
   
   const formik = useFormik({
     initialValues: {
@@ -31,7 +34,11 @@ const NewMessage = () => {
         await newMessage(message);
         formik.resetForm();
       } catch (error) {
-        console.log(error);
+        if (!error.isAxiosError) {
+          toast.error(t('error.unknown'));
+        } else {
+          toast.error(t('error.network'));
+        }
       }
     },
   });
@@ -47,11 +54,11 @@ const NewMessage = () => {
           <Form.Control
             name="body"
             className="border-0 p-0 ps-2"
-            aria-label={'Новое сообщение'}
+            aria-label={t('chat.newMessage')}
             onChange={formik.handleChange}
             value={formik.values.body}
             disabled={formik.isSubmitting}
-            placeholder={'Введите сообщение...'}
+            placeholder={t('chat.placeholder')}
             ref={messageRef}
           />
           <Button
@@ -59,7 +66,7 @@ const NewMessage = () => {
             variant="vertical"
             disabled={!formik.isValid}
           >
-            {'Отправить'}
+            {t('chat.send')}
           </Button>
         </InputGroup>
       </Form>

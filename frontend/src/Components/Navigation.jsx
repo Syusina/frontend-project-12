@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import useAuth from '../hooks/useAuth';
 import routes from '../routes';
 
@@ -11,12 +12,13 @@ const Navigation = () => {
     logOut();
     navigate(routes.chatPagePath());
   };
+  const { t } = useTranslation();
 
   return (
     <Navbar bg="white" expand="lg" className="shadow-sm">
       <Container>
-        <Nav.Link as={Link} to="/" className="navbar-brand">Hexlet Chat</Nav.Link>
-        {user ? <Button type="button" className="btn btn-primary" onClick={handlerClick}>Выйти</Button> : null}
+        <Nav.Link as={Link} to="/" className="navbar-brand">{t('hexletChat')}</Nav.Link>
+        {user ? <Button type="button" className="btn btn-primary" onClick={handlerClick}>{t('logout')}</Button> : null}
       </Container>
     </Navbar>
   );
