@@ -34,17 +34,38 @@ const rollbarConfig = {
   environment: 'testenv',
 };
 
-function TestError() {
-  const a = null;
-  return a.hello();
-}
-
 const App = () => (
-  <Provider config={rollbarConfig}>
-      <ErrorBoundary>
-        <TestError />
-      </ErrorBoundary>
-    </Provider>
+  <RollbarProvider config={rollbarConfig}>
+    <ErrorBoundary>
+      <Provider store={store}>
+        <I18nextProvider i18n={i18n}>
+          <SocketContext.Provider value={sockets}>
+            <AuthProvider>
+              <div className="d-flex flex-column h-100">
+                <Router>
+                  <Navigation />
+                  <Routes>
+                    <Route path={routes.loginPagePath()} element={<LoginPage />} />
+                    <Route path="*" element={<PageNotFound />} />
+                    <Route path={routes.signupPagePath()} element={<SignUp />} />
+                    <Route
+                      path={routes.chatPagePath()}
+                      element={(
+                        <PrivateRoute>
+                          <Chat />
+                        </PrivateRoute>
+                      )}
+                    />
+                  </Routes>
+                </Router>
+              </div>
+              <div className="Toastify"><ToastContainer /></div>
+            </AuthProvider>
+          </SocketContext.Provider>
+        </I18nextProvider>
+      </Provider>
+    </ErrorBoundary>
+  </RollbarProvider>
 );
 
 export default App;
