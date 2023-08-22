@@ -30,13 +30,19 @@ const censorshipDictionaryRu = leoProfanity.getDictionary('ru');
 leoProfanity.add(censorshipDictionaryRu);
 
 const rollbarConfig = {
-  accessToken: process.env.REACT_APP_ROLLBAR_TOKEN,
-  environment: 'dev',
+  accessToken: '3f49e8cd621142d6adf8d4ccc79d07a7',
+  environment: 'testenv',
 };
+
+function TestError() {
+  const a = null;
+  return a.hello();
+}
 
 const App = () => (
   <RollbarProvider config={rollbarConfig}>
     <ErrorBoundary>
+    <TestError />
       <Provider store={store}>
         <I18nextProvider i18n={i18n}>
           <SocketContext.Provider value={sockets}>
