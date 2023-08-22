@@ -41,6 +41,7 @@ const NewChannelModal = () => {
     onSubmit: async ({ name }) => {
       const cleanedName = leoProfanity.clean(name);
       const channel = { name: cleanedName };
+
       try {
         const { id } = await newChannel(channel);
         toast.success(t('channels.created'));
