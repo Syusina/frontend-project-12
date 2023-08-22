@@ -30,8 +30,8 @@ const censorshipDictionaryRu = leoProfanity.getDictionary('ru');
 leoProfanity.add(censorshipDictionaryRu);
 
 const rollbarConfig = {
-  accessToken: '60855e9d0abb4c74978701a42376016a',
-  environment: 'testenv',
+  accessToken: process.env.REACT_APP_ROLLBAR_TOKEN,
+  environment: 'dev',
 };
 
 const App = () => (
