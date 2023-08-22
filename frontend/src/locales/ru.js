@@ -5,8 +5,8 @@ const ru = {
     channels: {
       add: '+',
       grid: '# ',
-      remove: 'Удалить',
       rename: 'Переименовать',
+      remove: 'Удалить',
       channels: 'Каналы',
       created: 'Канал создан',
       renamed: 'Канал переименован',
