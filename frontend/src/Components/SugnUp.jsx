@@ -19,7 +19,7 @@ const SignUp = () => {
   const { t } = useTranslation();
 
   const navigate = useNavigate();
-  const [signFail, setSignFail] = useState();
+  const [signFail, setSignFail] = useState(false);
   const existName = leoProfanity.list();
 
   const formik = useFormik({
@@ -31,23 +31,23 @@ const SignUp = () => {
     validationSchema: yup.object({
       username: yup.string()
         .trim()
-        .required('Обязательное поле')
-        .min(3, 'От 3 до 20')
-        .max(20, 'От 3 до 20')
-        .notOneOf(existName, 'Имя уже есть'),
+        .required('signup.required')
+        .min(3,  'signup.usernameConstraints')
+        .max(20, 'signup.usernameConstraints')
+        .notOneOf(existName, 'signup.badName'),
       password: yup.string()
         .trim()
-        .required('Обязательное поле')
-        .min(6, 'Минимум 6'),
+        .required('signup.required')
+        .min(6, 'signup.passMin'),
       confirmPassword: yup.string()
         .trim()
-        .required('Обязательное поле')
-        .oneOf([yup.ref('password'), null], 'Не совпадает'),
+        .required('signup.required')
+        .oneOf([yup.ref('password'), null], 'signup.mustMatch'),
     }),
 
     onSubmit: async ({ username, password }) => {
       try {
-        const { data } = await axios.post(routes.signUpPath(), { username, password });
+        const { data } = await axios.post(routes.signupPath(), { username, password });
         logIn(data);
         navigate(routes.chatPagePath(), { replace: true });
       } catch (error) {
