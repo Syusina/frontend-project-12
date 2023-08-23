@@ -1,7 +1,8 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
-import { Button, Form, Container, Row, Col, Card } from 'react-bootstrap';
+import { Button, Form, Container, Row, Col, Card, FloatingLabel } from 'react-bootstrap';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
@@ -61,7 +62,8 @@ const LoginPage = () => {
               </Col>
             <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
               <h1 className="text-center mb-4">{t('login.header')}</h1>
-                <Form.Group className="form-floating mb-3" controlId="username">
+                <Form.Group className="form-floating mb-3">
+                  <FloatingLabel controlId="username" label={t('login.username')} className="mb-3 mt-3">
                     <Form.Control
                       onChange={formik.handleChange}
                       value={formik.values.username}
@@ -74,23 +76,26 @@ const LoginPage = () => {
                       required
                       ref={inputRef}
                     />
+                  </FloatingLabel>
                 </Form.Group>
                 <Form.Group className="form-floating mb-3" controlId="password">
-                  <Form.Control
-                    type="password"
-                    onChange={formik.handleChange}
-                    value={formik.values.password}
-                    placeholder={t('login.password')}
-                    name="password"
-                    id="password"
-                    autoComplete="current-password"
-                    isInvalid={authFailed}
-                    required
-                  />
-                  <Form.Control.Feedback type="invalid">{t('login.authFailed')}</Form.Control.Feedback>
-                </Form.Group>
+                  <FloatingLabel controlId="password" label={t('login.password')} className="mb-3 mt-3">
+                    <Form.Control
+                      type="password"
+                      onChange={formik.handleChange}
+                      value={formik.values.password}
+                      placeholder={t('login.password')}
+                      name="password"
+                      id="password"
+                      autoComplete="current-password"
+                      isInvalid={authFailed}
+                      required
+                    />
+                    {authFailed && <Form.Control.Feedback tooltip type="invalid">{t('login.authFailed')}</Form.Control.Feedback>}
+                  </FloatingLabel>
+                  </Form.Group>
                 <Button type="submit" disabled={formik.isSubmitting} className="w-100 mb-3" variant="outline-primary">{t('login.submit')}</Button>
-            </Form>
+              </Form>
             </Card.Body>
             <Card.Footer className="card-footer p-4">
               <div className="text-center">

@@ -16,7 +16,7 @@ import PrivateRoute from './Components/PrivateRoute.jsx';
 import AuthProvider from './Components/AuthProvider.jsx';
 import store from './slices/index.js';
 import SocketContext from './context/SocketContext.jsx';
-import SignUp from './Components/SugnUp.jsx';
+import SignUp from './Components/SignUp.jsx';
 import routes from './routes.js';
 import resources from './locales/index.js';
 import sockets from './sockets';

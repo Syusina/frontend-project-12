@@ -36,7 +36,6 @@ const ru = {
       channelName: 'Имя канала',
     },
     chat: {
-      send: 'Отправить',
       message_zero: 'сообщений',
       message_one: 'сообщение',
       message_few: 'сообщения',

@@ -36,7 +36,6 @@ const en = {
       channelName: 'Chanel name',
     },
     chat: {
-      send: 'Send',
       message_zero: 'messages',
       message_one: 'message',
       message_few: 'messages',
