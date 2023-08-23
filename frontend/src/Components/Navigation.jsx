@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Nav, Container, Button } from 'react-bootstrap';
+import { Navbar, Container, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import useAuth from '../hooks/useAuth';
@@ -17,7 +17,7 @@ const Navigation = () => {
   return (
     <Navbar bg="white" expand="lg" className="shadow-sm">
       <Container>
-        <Nav.Link as={Link} to="/" className="navbar-brand">{t('hexletChat')}</Nav.Link>
+        <Navbar.Brand as={Link} to={routes.chatPagePath()}>{t('hexletChat')}</Navbar.Brand>
         {user ? <Button type="button" className="btn btn-primary" onClick={handlerClick}>{t('logout')}</Button> : null}
       </Container>
     </Navbar>

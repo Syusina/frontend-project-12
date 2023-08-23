@@ -1,14 +1,15 @@
 
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import Chat from './Chat';
-import LoginPage from './LoginPage';
+import routes from '../routes';
 
 const PrivateRoute = () => {
   const { user } = useAuth();
 
   return (
-    user ? (<Chat />) : (<LoginPage />)
+    user ? (<Chat />) : (<Navigate to={routes.loginPagePath()} />)
   );
 };
 

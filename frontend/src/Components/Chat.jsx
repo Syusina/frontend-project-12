@@ -42,7 +42,7 @@ const Chat = () => {
       }
     };
     addChat(auth.user.token);
-  }, [auth, dispatch]);
+  }, [auth, dispatch, navigate, t]);
 
   return (
     added ? (

@@ -9,7 +9,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import leoProfanity from 'leo-profanity';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import LoginPage from './Components/LoginPage.jsx';
-import Chat from './Components/Chat.jsx';
 import Navigation from './Components/Navigation.jsx';
 import PageNotFound from './Components/PageNotFound.jsx';
 import PrivateRoute from './Components/PrivateRoute.jsx';
@@ -46,16 +45,9 @@ const App = () => (
                   <Navigation />
                   <Routes>
                     <Route path={routes.loginPagePath()} element={<LoginPage />} />
-                    <Route path="*" element={<PageNotFound />} />
                     <Route path={routes.signupPagePath()} element={<SignUp />} />
-                    <Route
-                      path={routes.chatPagePath()}
-                      element={(
-                        <PrivateRoute>
-                          <Chat />
-                        </PrivateRoute>
-                      )}
-                    />
+                    <Route path={routes.chatPagePath()} element={(<PrivateRoute />)}/>
+                    <Route path="*" element={<PageNotFound />} />
                   </Routes>
                 </Router>
               </div>

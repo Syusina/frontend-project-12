@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, Container, Row, Col, Card, FloatingLabel } from 'react-bootstrap';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import useAuth from '../hooks/useAuth.jsx';
@@ -16,7 +16,6 @@ const LoginPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [authFailed, setAuthFailed] = useState(false);
-  const location = useLocation();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -32,8 +31,7 @@ const LoginPage = () => {
       try {
         const { data } = await axios.post(routes.loginPath(), values);
         logIn(data);
-        const { from } = location.state || { from: { pathname: '/' } };
-        navigate(from);
+        navigate(routes.chatPagePath(), { replace: true });
       } catch (error) {
         formik.setSubmitting(false);
         if (!error.isAxiosError) {

@@ -17,7 +17,7 @@ const SignUp = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [signFail, setSignFail] = useState(false);
-  const existName = leoProfanity.list();
+  const obsceneWords = leoProfanity.list();
 
   const formik = useFormik({
     initialValues: {
@@ -31,7 +31,7 @@ const SignUp = () => {
         .required('signup.required')
         .min(3,  'signup.usernameConstraints')
         .max(20, 'signup.usernameConstraints')
-        .notOneOf(existName, 'signup.badName'),
+        .notOneOf(obsceneWords, 'signup.badName'),
       password: yup.string()
         .trim()
         .required('signup.required')
