@@ -23,21 +23,14 @@ const RenameChannelModal = () => {
   const inputRef = useRef();
   const { t } = useTranslation();
 
-  const close = () => {
-    dispatch(closeModal());
-  };
+  const close = () => dispatch(closeModal());
 
   const formik = useFormik({
     initialValues: {
       name: channel.name,
     },
     validationSchema: yup.object({
-      name: yup.string()
-        .trim()
-        .required('modals.required')
-        .min(3, 'modals.min')
-        .max(20, 'modals.max')
-        .notOneOf(channelsNames, 'modals.uniq'),
+      name: yup.string().trim().required('modals.required').min(3, 'modals.min').max(20, 'modals.max').notOneOf(channelsNames, 'modals.uniq'),
     }),
     onSubmit: async ({ name }) => {
       const cleanedName = leoProfanity.clean(name);

@@ -7,46 +7,29 @@ import { setCurrentChannel } from '../slices/chatSlice';
 import { openModal } from '../slices/modalSlice';
 
 const Channels = () => {
-  const { channels, currentChannelId } = useSelector(
-    (state) => state.channelsInfo,
-  );
+  const { channels, currentChannelId } = useSelector((state) => state.channelsInfo);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const changeChannel = (id) => () => {
-    dispatch(setCurrentChannel({ id }));
-  };
-
-  const addNewChannel = () => {
-    dispatch(openModal({ type: 'addChannel' }));
-  };
-
-  const renameChannel = (id) => () => {
-    dispatch(openModal({ type: 'renameChannel', id }));
-  };
-
-  const removeChannel = (id) => () => {
-    dispatch(openModal({ type: 'removeChannel', id }));
-  };
+  const changeChannel = (id) => () => dispatch(setCurrentChannel({ id }));
+  const addNewChannel = () => dispatch(openModal({ type: 'addChannel' }));
+  const renameChannel = (id) => () => dispatch(openModal({ type: 'renameChannel', id }));
+  const removeChannel = (id) => () => dispatch(openModal({ type: 'removeChannel', id }));
 
   return (
     <Col className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
         <b>{t('channels.channels')}</b>
         <Button 
-          variant="light"
-          size="sm"
-          className="pb-0 pt-0 btn-outline-primary"
+          variant="light" 
+          size="sm" 
+          className="pb-0 pt-0 btn-outline-primary" 
           onClick={addNewChannel}
         >
           <b><span>{t('channels.add')}</span></b>
         </Button>
       </div>
-
-      <ul 
-        id="channels-box"
-        className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block"
-      >
+      <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
       {channels.map(({ id, name, removable }) => (removable ? (
         <li className="nav-item w-100" key={id}>
           <Dropdown as={ButtonGroup} className="d-flex">

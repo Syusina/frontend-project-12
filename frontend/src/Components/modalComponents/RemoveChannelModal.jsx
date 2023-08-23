@@ -14,9 +14,7 @@ const RemoveChannelModal = () => {
   const id = useSelector((state) => state.modalInfo.extra);
   const { t } = useTranslation();
 
-  const close = () => {
-    dispatch(closeModal());
-  };
+  const close = () => dispatch(closeModal());
 
   const remove = async () => {
     try {

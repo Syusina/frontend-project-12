@@ -16,32 +16,22 @@ import useSocketContext from '../../hooks/useSocketContext';
 const NewChannelModal = () => {
   const { newChannel } = useSocketContext();
   const { isOpened } = useSelector((state) => state.modalInfo);
-
   const { channels } = useSelector((state) => state.channelsInfo);
   const channelsNames = channels.map((channel) => channel.name);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const close = () => {
-    dispatch(closeModal());
-  };
+  const close = () => dispatch(closeModal());
 
   const formik = useFormik({
     initialValues: {
       name: '',
     },
     validationSchema: yup.object({
-      name: yup.string()
-        .trim()
-        .required('modals.required')
-        .min(3, 'modals.min')
-        .max(20, 'modals.max')
-        .notOneOf(channelsNames, 'modals.uniq'),
+      name: yup.string().trim().required('modals.required').min(3, 'modals.min').max(20, 'modals.max').notOneOf(channelsNames, 'modals.uniq'),
     }),
     onSubmit: async ({ name }) => {
-      const cleanedName = leoProfanity.clean(name);
-      const channel = { name: cleanedName };
-
+      const channel = { name: leoProfanity.clean(name) };
       try {
         const { id } = await newChannel(channel);
         toast.success(t('channels.created'));

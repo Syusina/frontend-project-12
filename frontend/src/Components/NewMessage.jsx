@@ -12,8 +12,7 @@ import useAuth from '../hooks/useAuth';
 const NewMessage = () => {
   const messageRef = useRef();
   const { newMessage } = useSocketContext();
-  const channelId = useSelector(
-    (state) => state.channelsInfo.currentChannelId);
+  const channelId = useSelector((state) => state.channelsInfo.currentChannelId);
   const { user: { username } } = useAuth();
   const { t } = useTranslation();
   
@@ -22,14 +21,10 @@ const NewMessage = () => {
       body: '',
     },
     validationSchema: yup.object({
-      body: yup.string()
-               .trim()
-               .required('Required'),
+      body: yup.string().trim().required('Required'),
     }),
     onSubmit: async ({ body }) => {
-      const text = filter.clean(body);
-      const message = { body: text, username, channelId };
-      
+      const message = { body: filter.clean(body), username, channelId };
       try {
         await newMessage(message);
         formik.resetForm();
@@ -61,11 +56,7 @@ const NewMessage = () => {
             placeholder={t('chat.placeholder')}
             ref={messageRef}
           />
-          <Button
-            type="submit"
-            variant="vertical"
-            disabled={!formik.isValid}
-          >
+          <Button type="submit" variant="vertical" disabled={!formik.isValid}>
             {t('chat.send')}
           </Button>
         </InputGroup>

@@ -27,7 +27,6 @@ const Chat = () => {
            Authorization: `Bearer ${token}`,
           },
         });
-       
         dispatch(loadChannels(data));
         setAdded(true);
       } catch (error) {

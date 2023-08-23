@@ -11,11 +11,11 @@ import LoginImg from '../img/LoginImg.jpeg';
 
 const LoginPage = () => {
   const { logIn } = useAuth();
-  const [authFailed, setAuthFailed] = useState(false);
   const inputRef = useRef();
-  const location = useLocation();
-  const navigate = useNavigate();
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [authFailed, setAuthFailed] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -28,7 +28,6 @@ const LoginPage = () => {
     },
     onSubmit: async (values) => {
       setAuthFailed(false);
-
       try {
         const { data } = await axios.post(routes.loginPath(), values);
         logIn(data);
@@ -36,7 +35,6 @@ const LoginPage = () => {
         navigate(from);
       } catch (error) {
         formik.setSubmitting(false);
-
         if (!error.isAxiosError) {
           toast.error(t('error.unknown'));
           return;
@@ -53,33 +51,31 @@ const LoginPage = () => {
   });
 
   return (
-    <Container className="container-fluid h-100">
+    <Container fluid className="h-100">
       <Row className="justify-content-center align-content-center h-100">
         <Col className="col-12 col-md-8 col-xxl-6">
           <Card className="shadow-sm">
             <Card.Body className="row p-5">
               <Col className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-              <img className="rounded-circle" src={LoginImg} alt={t('login.header')} /> 
+                <img className="rounded-circle" src={LoginImg} alt={t('login.header')} /> 
               </Col>
             <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
-            <h1 className="text-center mb-4">{t('login.header')}</h1>
-              <fieldset disabled={formik.isSubmitting}>
-                <Form.Group className="form-floating mb-3">
-                  <Form.Label htmlFor="username"></Form.Label>
-                  <Form.Control
-                    onChange={formik.handleChange}
-                    value={formik.values.username}
-                    placeholder={t('login.username')}
-                    name="username"
-                    id="username"
-                    autoComplete="username"
-                    isInvalid={authFailed}
-                    required
-                    ref={inputRef}
-                  />
+              <h1 className="text-center mb-4">{t('login.header')}</h1>
+                <Form.Group className="form-floating mb-3" controlId="username">
+                    <Form.Control
+                      onChange={formik.handleChange}
+                      value={formik.values.username}
+                      placeholder={t('login.username')}
+                      disabled={formik.isSubmitting}
+                      name="username"
+                      id="username"
+                      autoComplete="username"
+                      isInvalid={authFailed}
+                      required
+                      ref={inputRef}
+                    />
                 </Form.Group>
-                <Form.Group className="form-floating mb-3">
-                  <Form.Label htmlFor="password"></Form.Label>
+                <Form.Group className="form-floating mb-3" controlId="password">
                   <Form.Control
                     type="password"
                     onChange={formik.handleChange}
@@ -94,7 +90,6 @@ const LoginPage = () => {
                   <Form.Control.Feedback type="invalid">{t('login.authFailed')}</Form.Control.Feedback>
                 </Form.Group>
                 <Button type="submit" disabled={formik.isSubmitting} className="w-100 mb-3" variant="outline-primary">{t('login.submit')}</Button>
-              </fieldset>
             </Form>
             </Card.Body>
             <Card.Footer className="card-footer p-4">

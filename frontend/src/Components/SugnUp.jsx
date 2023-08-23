@@ -5,19 +5,16 @@ import * as yup from 'yup';
 import leoProfanity from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { Button, Form } from 'react-bootstrap';
 import useAuth from '../hooks/useAuth';
 import axios from 'axios';
 import routes from '../routes';
 import SignUpImg from '../img/SignUpImg.jpg';
 
 const SignUp = () => {
-  const auth = useAuth();
-  const { logIn } = auth;
+  const { logIn } = useAuth();
   const inputRef = useRef();
   const { t } = useTranslation();
-
   const navigate = useNavigate();
   const [signFail, setSignFail] = useState(false);
   const existName = leoProfanity.list();
@@ -29,20 +26,9 @@ const SignUp = () => {
       repeatPassword: '',
     },
     validationSchema: yup.object({
-      username: yup.string()
-        .trim()
-        .required('signup.required')
-        .min(3,  'signup.usernameConstraints')
-        .max(20, 'signup.usernameConstraints')
-        .notOneOf(existName, 'signup.badName'),
-      password: yup.string()
-        .trim()
-        .required('signup.required')
-        .min(6, 'signup.passMin'),
-      confirmPassword: yup.string()
-        .trim()
-        .required('signup.required')
-        .oneOf([yup.ref('password'), null], 'signup.mustMatch'),
+      username: yup.string().trim().required('signup.required').min(3,  'signup.usernameConstraints').max(20, 'signup.usernameConstraints').notOneOf(existName, 'signup.badName'),
+      password: yup.string().trim().required('signup.required').min(6, 'signup.passMin'),
+      confirmPassword: yup.string().trim().required('signup.required').oneOf([yup.ref('password'), null], 'signup.mustMatch'),
     }),
 
     onSubmit: async ({ username, password }) => {
@@ -51,7 +37,6 @@ const SignUp = () => {
         logIn(data);
         navigate(routes.chatPagePath(), { replace: true });
       } catch (error) {
-
         if (!error.isAxiosError) {
           toast.error(t('error.unknown'));
           return;
@@ -78,7 +63,7 @@ const SignUp = () => {
               </div>
               <Form onSubmit={formik.handleSubmit} className="w-50">
                 <h1 className="text-center mb-4">{t('login.signup')}</h1>
-                <Form.Group className="form-floating mb-3">
+                <Form.Group className="form-floating mb-3" controlId="username">
                   <Form.Control
                     id="username"
                     name="username"
@@ -91,12 +76,11 @@ const SignUp = () => {
                     required
                     autoFocus
                   />
-                  <Form.Label htmlFor="username"></Form.Label>
                   <Form.Control.Feedback type="invalid" placement="right">
                     {t(formik.errors.username)}
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group className="form-floating mb-3">
+                <Form.Group className="form-floating mb-3" controlId="password">
                   <Form.Control
                     type="password"
                     id="password"
@@ -108,12 +92,11 @@ const SignUp = () => {
                     placeholder={t('signup.password')}
                     required
                   />
-                  <Form.Label htmlFor="password"></Form.Label>
                   <Form.Control.Feedback type="invalid" placement="right">
                     {t(formik.errors.password)}
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group className="form-floating mb-3">
+                <Form.Group className="form-floating mb-3" controlId="confirmPassword">
                   <Form.Control
                     type="password"
                     id="confirmPassword"
@@ -125,17 +108,11 @@ const SignUp = () => {
                     placeholder={t('signup.confirm')}
                     required
                   />
-                  <Form.Label htmlFor="confirmPassword"></Form.Label>
                   <Form.Control.Feedback type="invalid" placement="right">
                     {signFail ? t('signup.alreadyExists') : t(formik.errors.confirmPassword)}
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Button
-                  disabled={formik.isSubmitting}
-                  type="submit"
-                  variant="outline-primary"
-                  className="w-100"
-                >
+                <Button disabled={formik.isSubmitting} type="submit" variant="outline-primary" className="w-100">
                   {t('signup.submit')}
                 </Button>
               </Form>
