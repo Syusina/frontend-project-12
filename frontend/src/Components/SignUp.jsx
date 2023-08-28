@@ -70,12 +70,12 @@ const SignUp = () => {
           <Card className="shadow-sm">
             <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5"> 
               <Col className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                <img className="rounded-circle" src={SignUpImg} alt={t('login.signup')} />
+                <img className="rounded-circle" src={SignUpImg} alt={t('signup.header')} />
               </Col>
                 <Form onSubmit={formik.handleSubmit} className="w-50">
-                  <h1 className="text-center mb-4">{t('login.signup')}</h1>
+                  <h1 className="text-center mb-4">{t('signup.header')}</h1>
                   <Form.Group className="form-floating mb-3" controlId="username">
-                    <FloatingLabel controlId="username" label={t('login.username')} className="mb-3 mt-3">
+                    <FloatingLabel controlId="username" label={t('signup.username')} className="mb-3 mt-3">
                       <Form.Control
                         id="username"
                         name="username"
@@ -94,7 +94,7 @@ const SignUp = () => {
                     </FloatingLabel>
                   </Form.Group>
                   <Form.Group className="form-floating mb-3" controlId="password">
-                    <FloatingLabel controlId="password" label={t('login.password')} className="mb-3 mt-3">
+                    <FloatingLabel controlId="password" label={t('signup.password')} className="mb-3 mt-3">
                       <Form.Control
                         type="password"
                         id="password"
@@ -112,7 +112,7 @@ const SignUp = () => {
                     </FloatingLabel>
                   </Form.Group>
                   <Form.Group className="form-floating mb-3" controlId="confirmPassword">
-                    <FloatingLabel controlId="confirmPassword" label={t('login.password')} className="mb-3 mt-3">
+                    <FloatingLabel controlId="confirmPassword" label={t('signup.confirm')} className="mb-3 mt-3">
                       <Form.Control
                         type="password"
                         id="confirmPassword"
