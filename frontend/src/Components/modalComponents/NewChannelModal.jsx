@@ -28,7 +28,12 @@ const NewChannelModal = () => {
       name: '',
     },
     validationSchema: yup.object({
-      name: yup.string().trim().required('modals.required').min(3, 'modals.min').max(20, 'modals.max').notOneOf(channelsNames, 'modals.uniq'),
+      name: yup.string()
+        .trim()
+        .required('modals.required')
+        .min(3, 'modals.min')
+        .max(20, 'modals.max')
+        .notOneOf(channelsNames, 'modals.uniq'),
     }),
     onSubmit: async ({ name }) => {
       const channel = { name: leoProfanity.clean(name) };
@@ -66,7 +71,7 @@ const NewChannelModal = () => {
               autoFocus
               isInvalid={(formik.errors.name && formik.touched.name)}
             />
-            <label className="visually-hidden" htmlFor="name"></label>
+            <label className="visually-hidden" htmlFor="name">{t('modals.channelName')}</label>
             <Form.Control.Feedback type="invalid">{t(formik.errors.name)}</Form.Control.Feedback>
           </Form.Group>
         </Form>
