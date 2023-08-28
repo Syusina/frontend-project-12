@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { closeModal } from '../../slices/modalSlice';
 import { setCurrentChannel } from '../../slices/chatSlice';
 import useSocketContext from '../../hooks/useSocketContext';
+import { FloatingLabel } from 'react-bootstrap';
 
 
 const NewChannelModal = () => {
@@ -54,25 +55,28 @@ const NewChannelModal = () => {
   });
 
   return (
-    <Modal show={isOpened} onHide={close}>
+    <Modal show={isOpened} centered onHide={close}>
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.add')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
-            <Form.Control
-              name="name"
-              id="name"
-              className="mb-2"
-              disabled={formik.isSubmitting}
-              value={formik.values.name}
-              onChange={formik.handleChange}
-              autoFocus
-              isInvalid={(formik.errors.name && formik.touched.name)}
-            />
-            <label className="visually-hidden" htmlFor="name">{t('modals.channelName')}</label>
-            <Form.Control.Feedback type="invalid">{t(formik.errors.name)}</Form.Control.Feedback>
+            <FloatingLabel label={t('modals.channelName')} controlId="name" >
+              <Form.Control
+                name="name"
+                id="name"
+                className="mb-2"
+                disabled={formik.isSubmitting}
+                placeholder={t('modals.channelName')}
+                value={formik.values.name}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                autoFocus
+                isInvalid={(formik.errors.name && formik.touched.name)}
+              />
+              <Form.Control.Feedback type="invalid">{t(formik.errors.name)}</Form.Control.Feedback>
+            </FloatingLabel>
           </Form.Group>
         </Form>
       </Modal.Body>
