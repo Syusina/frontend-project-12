@@ -3,8 +3,6 @@ const ru = {
     hexletChat: 'Hexlet Chat',
     logout: 'Выйти',
     channels: {
-      add: '+',
-      grid: '# ',
       rename: 'Переименовать',
       remove: 'Удалить',
       channels: 'Каналы',
