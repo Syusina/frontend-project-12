@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { animateScroll } from 'react-scroll';
 
 const defaultChannelId = 1;
 
@@ -20,6 +21,7 @@ const chatSlice = createSlice({
     
     addChannel(state, { payload }) {
       state.channels.push(payload);
+      setTimeout(() => animateScroll.scrollToBottom({ containerId: 'channels-box', to: 'bottom', isDynamic: true }));
     },
 
     renameChannel(state, { payload }) {
