@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import leoProfanity from 'leo-profanity';
 import useSocketContext from '../../hooks/useSocketContext';
 import { closeModal } from '../../slices/modalSlice';
-
+import { FloatingLabel } from 'react-bootstrap';
 
 const RenameChannelModal = () => {
   const { renameChannel } = useSocketContext();
@@ -30,7 +30,12 @@ const RenameChannelModal = () => {
       name: channel.name,
     },
     validationSchema: yup.object({
-      name: yup.string().trim().required('modals.required').min(3, 'modals.min').max(20, 'modals.max').notOneOf(channelsNames, 'modals.uniq'),
+      name: yup.string()
+        .trim()
+        .required('modals.required')
+        .min(3, 'modals.min')
+        .max(20, 'modals.max')
+        .notOneOf(channelsNames, 'modals.uniq'),
     }),
     onSubmit: async ({ name }) => {
       const cleanedName = leoProfanity.clean(name);
@@ -55,25 +60,28 @@ const RenameChannelModal = () => {
   }, []);
 
   return (
-    <Modal show={isOpened} onHide={close}>
+    <Modal show={isOpened} centered onHide={close}>
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.rename')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
-            <Form.Control
-              name="name"
-              id="name"
-              className="mb-2"
-              disabled={formik.isSubmitting}
-              value={formik.values.name}
-              onChange={formik.handleChange}
-              ref={inputRef}
-              isInvalid={formik.errors.name && formik.touched.name}
-            />
-            <label className="visually-hidden" htmlFor="name"></label>
-            <Form.Control.Feedback type="invalid">{t(formik.errors.name)}</Form.Control.Feedback>
+            <FloatingLabel label={t('modals.rename')} controlId="name" >
+              <Form.Control
+                name="name"
+                id="name"
+                className="mb-2"
+                disabled={formik.isSubmitting}
+                value={formik.values.name}
+                placeholder={t('modals.rename')}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                ref={inputRef}
+                isInvalid={formik.errors.name && formik.touched.name}
+              />
+              <Form.Control.Feedback type="invalid">{t(formik.errors.name)}</Form.Control.Feedback>
+            </FloatingLabel>
           </Form.Group>
         </Form>
       </Modal.Body>

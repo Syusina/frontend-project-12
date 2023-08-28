@@ -31,7 +31,7 @@ const RemoveChannelModal = () => {
   };
 
   return (
-    <Modal show={isOpened} onHide={close}>
+    <Modal show={isOpened} centered onHide={close}>
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.remove')}</Modal.Title>
       </Modal.Header>
