@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
 const defaultChannelId = 1;
@@ -17,7 +18,7 @@ const chatSlice = createSlice({
     setCurrentChannel(state, { payload }) {
       state.currentChannelId = payload.id;
     },
-    
+
     addChannel(state, { payload }) {
       state.channels.push(payload);
     },
@@ -38,5 +39,7 @@ const chatSlice = createSlice({
   },
 });
 
-export const { loadChannels, setCurrentChannel, addChannel, renameChannel, removeChannel } = chatSlice.actions;
+export const {
+  loadChannels, setCurrentChannel, addChannel, renameChannel, removeChannel,
+} = chatSlice.actions;
 export default chatSlice.reducer;

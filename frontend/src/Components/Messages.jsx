@@ -14,7 +14,6 @@ const Messages = () => {
   const currentChannelMessages = messages
     .filter(({ channelId }) => channelId === currentChannelId);
   const currentChannel = channels.find(({ id }) => id === currentChannelId);
-  
   const countMessages = currentChannelMessages.length;
   let messagesText;
   if (countMessages === 0) {

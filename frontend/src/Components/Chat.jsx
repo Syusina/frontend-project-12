@@ -24,7 +24,7 @@ const Chat = () => {
       try {
         const { data } = await axios.get(routes.usersPath(), {
           headers: {
-           Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         });
         dispatch(loadChannels(data));
@@ -46,15 +46,16 @@ const Chat = () => {
 
   return (
     added ? (
-    <Container className="h-100 my-4 overflow-hidden rounded shadow">
-      <ModalComponent />
-      <Row className="h-100 bg-white flex-md-row"> 
-        <Channels />
-        <Messages />
-      </Row>
-    </Container>
+      <Container className="h-100 my-4 overflow-hidden rounded shadow">
+        <ModalComponent />
+        <Row className="h-100 bg-white flex-md-row">
+          <Channels />
+          <Messages />
+        </Row>
+      </Container>
     ) : null
   );
 };
 
 export default Chat;
+

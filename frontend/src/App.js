@@ -46,7 +46,7 @@ const App = () => (
                   <Routes>
                     <Route path={routes.loginPagePath()} element={<LoginPage />} />
                     <Route path={routes.signupPagePath()} element={<SignUp />} />
-                    <Route path={routes.chatPagePath()} element={(<PrivateRoute />)}/>
+                    <Route path={routes.chatPagePath()} element={(<PrivateRoute />)} />
                     <Route path="*" element={<PageNotFound />} />
                   </Routes>
                 </Router>

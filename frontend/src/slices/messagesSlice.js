@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import { loadChannels, removeChannel } from './chatSlice';
 
@@ -18,8 +19,7 @@ const messagesSlice = createSlice({
       })
       .addCase(removeChannel, (state, { payload }) => {
         state.messages = state.messages.filter(({ channelId }) => channelId !== payload.id);
-      }
-    );
+      });
   },
 });
 
