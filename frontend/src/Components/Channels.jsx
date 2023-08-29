@@ -47,7 +47,7 @@ const Channels = () => {
               {name}
             </Button>
             <DropdownToggle split className="flex-grow-0" variant={currentChannelId === id ? "secondary" : "light"}>
-              <span className="visually-hidden">{t('channels.menu')}</span>
+              <span className="visually-hidden">{t('channels.management')}</span>
             </DropdownToggle>
             <Dropdown.Menu>
               <Dropdown.Item onClick={removeChannel(id)}>{t('channels.remove')}</Dropdown.Item>

@@ -3,6 +3,7 @@ const ru = {
     hexletChat: 'Hexlet Chat',
     logout: 'Выйти',
     channels: {
+      management: 'Управление каналом',
       rename: 'Переименовать',
       remove: 'Удалить',
       channels: 'Каналы',
@@ -32,6 +33,7 @@ const ru = {
       confirm: 'Удалить',
       rename: 'Переименовать канал',
       channelName: 'Имя канала',
+      newName: 'Новое имя канала',
     },
     chat: {
       message_zero: 'сообщений',

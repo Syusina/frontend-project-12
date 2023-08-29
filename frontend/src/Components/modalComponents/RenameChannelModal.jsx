@@ -16,8 +16,8 @@ const RenameChannelModal = () => {
   const { renameChannel } = useSocketContext();
   const { isOpened } = useSelector((state) => state.modalInfo);
   const { channels } = useSelector((state) => state.channelsInfo);
-  const channelId = useSelector((state) => state.modalInfo.extra);
   const channelsNames = channels.map((channel) => channel.name);
+  const channelId = useSelector((state) => state.modalInfo.extra);
   const channel = channels.find(({ id }) => id === channelId);
   const dispatch = useDispatch();
   const inputRef = useRef();
@@ -67,7 +67,7 @@ const RenameChannelModal = () => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
-            <FloatingLabel label={t('modals.rename')} controlId="name" >
+            <FloatingLabel label={t('modals.newName')} controlId="name" >
               <Form.Control
                 name="name"
                 id="name"
