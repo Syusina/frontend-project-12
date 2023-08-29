@@ -15,7 +15,7 @@ const NewMessage = () => {
   const channelId = useSelector((state) => state.channelsInfo.currentChannelId);
   const { user: { username } } = useAuth();
   const { t } = useTranslation();
-  
+
   const formik = useFormik({
     initialValues: {
       body: '',
@@ -67,7 +67,7 @@ const NewMessage = () => {
         </InputGroup>
       </Form>
     </div>
-  )
+  );
 };
 
 export default NewMessage;

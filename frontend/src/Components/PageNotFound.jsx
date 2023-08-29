@@ -12,7 +12,7 @@ const PageNotFound = () => {
       <img className="img-fluid h-25" src={NotFound} alt={t('notFound.header')} />
       <h1 className="h4 text-muted">{t('notFound.header')}</h1>
       <p className="text-muted">
-        {t('notFound.message')} 
+        {t('notFound.message')}
         <Link to={routes.chatPagePath()}>{t('notFound.linkText')}</Link>
       </p>
     </div>

@@ -1,13 +1,21 @@
 import React, { useRef, useState } from 'react';
+import * as yup from 'yup';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
-import * as yup from 'yup';
 import leoProfanity from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { Container, Row, Col, Card, Button, Form, FloatingLabel } from 'react-bootstrap';
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Button,
+  Form,
+  FloatingLabel,
+} from 'react-bootstrap';
 import useAuth from '../hooks/useAuth';
-import axios from 'axios';
 import routes from '../routes';
 import SignUpImg from '../img/SignUpImg.jpg';
 
@@ -29,7 +37,7 @@ const SignUp = () => {
       username: yup.string()
         .trim()
         .required('signup.required')
-        .min(3,  'signup.usernameConstraints')
+        .min(3, 'signup.usernameConstraints')
         .max(20, 'signup.usernameConstraints')
         .notOneOf(obsceneWords, 'signup.badName'),
       password: yup.string()
@@ -55,12 +63,11 @@ const SignUp = () => {
         if (error.response.status === 409) {
           setSignFail(true);
           inputRef.current.select();
-          return;
         } else {
-          toast.error(t('error.network'))
+          toast.error(t('error.network'));
         }
       }
-    }
+    },
   });
 
   return (
@@ -68,71 +75,74 @@ const SignUp = () => {
       <Row className="justify-content-center align-content-center h-100">
         <Col className="col-12 col-md-8 col-xxl-6">
           <Card className="shadow-sm">
-            <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5"> 
+            <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
               <Col className="col-12 col-md-6 d-flex align-items-center justify-content-center">
                 <img className="rounded-circle" src={SignUpImg} alt={t('signup.header')} />
               </Col>
-                <Form onSubmit={formik.handleSubmit} className="w-50">
-                  <h1 className="text-center mb-4">{t('signup.header')}</h1>
-                  <Form.Group className="form-floating mb-3" controlId="username">
-                    <FloatingLabel controlId="username" label={t('signup.username')} className="mb-3 mt-3">
-                      <Form.Control
-                        id="username"
-                        name="username"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.username}
-                        placeholder={t('signup.username')}
-                        isInvalid={(formik.errors.username && formik.touched.username) || signFail}
-                        ref={inputRef}
-                        required
-                        autoFocus
-                      />
-                      <Form.Control.Feedback tooltip type="invalid" placement="right">
+              <Form onSubmit={formik.handleSubmit} className="w-50">
+                <h1 className="text-center mb-4">{t('signup.header')}</h1>
+                <Form.Group className="form-floating mb-3" controlId="username">
+                  <FloatingLabel controlId="username" label={t('signup.username')} className="mb-3 mt-3">
+                    <Form.Control
+                      id="username"
+                      name="username"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.username}
+                      placeholder={t('signup.username')}
+                      isInvalid={(formik.errors.username && formik.touched.username) || signFail}
+                      ref={inputRef}
+                      required
+                      autoFocus
+                    />
+                    <Form.Control.Feedback tooltip type="invalid" placement="right">
                       {t(formik.errors.username)}
-                      </Form.Control.Feedback>
-                    </FloatingLabel>
-                  </Form.Group>
-                  <Form.Group className="form-floating mb-3" controlId="password">
-                    <FloatingLabel controlId="password" label={t('signup.password')} className="mb-3 mt-3">
-                      <Form.Control
-                        type="password"
-                        id="password"
-                        name="password"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.password}
-                        isInvalid={(formik.errors.password && formik.touched.password) || signFail}
-                        placeholder={t('signup.password')}
-                        required
-                      />
-                      <Form.Control.Feedback tooltip type="invalid" placement="right">
-                        {t(formik.errors.password)}
-                      </Form.Control.Feedback>
-                    </FloatingLabel>
-                  </Form.Group>
-                  <Form.Group className="form-floating mb-3" controlId="confirmPassword">
-                    <FloatingLabel controlId="confirmPassword" label={t('signup.confirm')} className="mb-3 mt-3">
-                      <Form.Control
-                        type="password"
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.confirmPassword}
-                        isInvalid={(formik.errors.confirmPassword && formik.touched.repeatPassword) || signFail}
-                        placeholder={t('signup.confirm')}
-                        required
-                      />
-                      <Form.Control.Feedback tooltip type="invalid" placement="right">
-                        {signFail ? t('signup.alreadyExists') : t(formik.errors.confirmPassword)}
-                      </Form.Control.Feedback>
-                    </FloatingLabel>
-                  </Form.Group>
-                  <Button disabled={formik.isSubmitting} type="submit" variant="outline-primary" className="w-100">
-                    {t('signup.submit')}
-                  </Button>
-                </Form>
+                    </Form.Control.Feedback>
+                  </FloatingLabel>
+                </Form.Group>
+                <Form.Group className="form-floating mb-3" controlId="password">
+                  <FloatingLabel controlId="password" label={t('signup.password')} className="mb-3 mt-3">
+                    <Form.Control
+                      type="password"
+                      id="password"
+                      name="password"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.password}
+                      isInvalid={(formik.errors.password && formik.touched.password) || signFail}
+                      placeholder={t('signup.password')}
+                      required
+                    />
+                    <Form.Control.Feedback tooltip type="invalid" placement="right">
+                      {t(formik.errors.password)}
+                    </Form.Control.Feedback>
+                  </FloatingLabel>
+                </Form.Group>
+                <Form.Group className="form-floating mb-3" controlId="confirmPassword">
+                  <FloatingLabel controlId="confirmPassword" label={t('signup.confirm')} className="mb-3 mt-3">
+                    <Form.Control
+                      type="password"
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.confirmPassword}
+                      isInvalid={
+                        (formik.errors.confirmPassword && formik.touched.repeatPassword)
+                        || signFail
+                      }
+                      placeholder={t('signup.confirm')}
+                      required
+                    />
+                    <Form.Control.Feedback tooltip type="invalid" placement="right">
+                      {signFail ? t('signup.alreadyExists') : t(formik.errors.confirmPassword)}
+                    </Form.Control.Feedback>
+                  </FloatingLabel>
+                </Form.Group>
+                <Button disabled={formik.isSubmitting} type="submit" variant="outline-primary" className="w-100">
+                  {t('signup.submit')}
+                </Button>
+              </Form>
             </Card.Body>
           </Card>
         </Col>

@@ -39,8 +39,12 @@ const RemoveChannelModal = () => {
         <p>{t('modals.confirmation')}</p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={close}> {t('modals.cancel')}</Button>
-        <Button variant="danger" onClick={remove}> {t('modals.confirm')}</Button>
+        <Button variant="secondary" onClick={close}>
+          {t('modals.cancel')}
+        </Button>
+        <Button variant="danger" onClick={remove}>
+          {t('modals.confirm')}
+        </Button>
       </Modal.Footer>
     </Modal>
   );

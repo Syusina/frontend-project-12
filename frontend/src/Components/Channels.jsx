@@ -3,8 +3,8 @@ import {
   Col,
   Button,
   ButtonGroup,
-  Dropdown
-  } from 'react-bootstrap';
+  Dropdown,
+} from 'react-bootstrap';
 import DropdownToggle from 'react-bootstrap/esm/DropdownToggle';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -40,39 +40,39 @@ const Channels = () => {
       </div>
       <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
         {channels.map(({ id, name, removable }) => (removable ? (
-        <li className="nav-item w-100" key={id}>
-          <Dropdown as={ButtonGroup} className="d-flex">
+          <li className="nav-item w-100" key={id}>
+            <Dropdown as={ButtonGroup} className="d-flex">
+              <Button
+                key={id}
+                variant={currentChannelId === id ? 'secondary' : 'light'}
+                className="w-100 text-start text-truncate"
+                onClick={changeChannel(id)}
+              >
+                <span className="me-1">#</span>
+                {name}
+              </Button>
+              <DropdownToggle split className="flex-grow-0" variant={currentChannelId === id ? 'secondary' : 'light'}>
+                <span className="visually-hidden">{t('channels.management')}</span>
+              </DropdownToggle>
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={removeChannel(id)}>{t('channels.remove')}</Dropdown.Item>
+                <Dropdown.Item onClick={renameChannel(id)}>{t('channels.rename')}</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </li>
+        ) : (
+          <li className="nav-item w-100" key={id}>
             <Button
               key={id}
               variant={currentChannelId === id ? 'secondary' : 'light'}
-              className="w-100 text-start text-truncate"
+              className="w-100 text-start"
               onClick={changeChannel(id)}
             >
               <span className="me-1">#</span>
               {name}
             </Button>
-            <DropdownToggle split className="flex-grow-0" variant={currentChannelId === id ? 'secondary' : 'light'}>
-              <span className="visually-hidden">{t('channels.management')}</span>
-            </DropdownToggle>
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={removeChannel(id)}>{t('channels.remove')}</Dropdown.Item>
-              <Dropdown.Item onClick={renameChannel(id)}>{t('channels.rename')}</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </li>
-      ) : (
-        <li className="nav-item w-100" key={id}>
-          <Button
-            key={id}
-            variant={currentChannelId === id ? 'secondary' : 'light'}
-            className="w-100 text-start"
-            onClick={changeChannel(id)}
-          >
-            <span className="me-1">#</span>
-              {name}
-          </Button>
           </li>
-      )))}
+        )))}
         <li ref={bottom} />
       </ul>
     </Col>

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { propTypes } from 'react-bootstrap/esm/Image.js';
+import React, { useState, useMemo } from 'react';
 import AuthContext from '../context/AuthContext';
 
 const AuthProvider = ({ children }) => {
@@ -16,15 +15,13 @@ const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  const auth = useMemo(() => ({ user, logIn, logOut }), [user, logIn, logOut]);
+
   return (
-    <AuthContext.Provider value={{ user, logIn, logOut }}>
+    <AuthContext.Provider value={auth}>
       {children}
     </AuthContext.Provider>
   );
-};
-
-AuthProvider.propTypes = {
-  children: propTypes.node,
 };
 
 export default AuthProvider;

@@ -9,8 +9,8 @@ import {
   Row,
   Col,
   Card,
-  FloatingLabel
-  } from 'react-bootstrap';
+  FloatingLabel,
+} from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';

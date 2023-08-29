@@ -2,6 +2,7 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { FloatingLabel } from 'react-bootstrap';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,8 +12,6 @@ import { toast } from 'react-toastify';
 import { closeModal } from '../../slices/modalSlice';
 import { setCurrentChannel } from '../../slices/chatSlice';
 import useSocketContext from '../../hooks/useSocketContext';
-import { FloatingLabel } from 'react-bootstrap';
-
 
 const NewChannelModal = () => {
   const { newChannel } = useSocketContext();
@@ -62,7 +61,7 @@ const NewChannelModal = () => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
-            <FloatingLabel label={t('modals.channelName')} controlId="name" >
+            <FloatingLabel label={t('modals.channelName')} controlId="name">
               <Form.Control
                 name="name"
                 id="name"

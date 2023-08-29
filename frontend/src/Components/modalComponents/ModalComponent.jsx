@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import NewChannelModal from "./NewChannelModal";
-import RemoveChannelModal from "./RemoveChannelModal";
+import NewChannelModal from './NewChannelModal';
+import RemoveChannelModal from './RemoveChannelModal';
 import RenameChannelModal from './RenameChannelModal';
 
 const map = {
