@@ -1,8 +1,6 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/Syusina/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/Syusina/frontend-project-12/actions)
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/dde3a4b64835b256633b/maintainability)](https://codeclimate.com/github/Syusina/frontend-project-12/maintainability)
-
 <h1>Hexlet Chat</h1>
 
 <h3>About</h3>
