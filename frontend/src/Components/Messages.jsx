@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +17,10 @@ const Messages = () => {
   const countMessages = currentChannelMessages.length;
   const { t } = useTranslation();
 
+  const messagesInEnd = useRef(null);
+  const scroll = () => messagesInEnd.current?.scrollIntoView({ behavior: 'auto' });
+  useEffect(() => scroll(), [messages]);
+
   return (
     <Col className="p-0 h-100">
       <div className="d-flex flex-column h-100">
@@ -32,6 +36,7 @@ const Messages = () => {
               {` ${body}`}
             </div>
           ))}
+          <div ref={messagesInEnd} />
         </div>
         <NewMessage />
       </div>

@@ -17,7 +17,7 @@ import {
 } from 'react-bootstrap';
 import useAuth from '../hooks/useAuth';
 import routes from '../routes';
-import SignUpImg from '../img/SignUpImg.jpg';
+import signUpImg from '../img/signUpImg.jpg';
 
 const SignUp = () => {
   const { logIn } = useAuth();
@@ -77,7 +77,7 @@ const SignUp = () => {
           <Card className="shadow-sm">
             <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
               <Col className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                <img className="rounded-circle" src={SignUpImg} alt={t('signup.header')} />
+                <img className="rounded-circle" src={signUpImg} alt={t('signup.header')} />
               </Col>
               <Form onSubmit={formik.handleSubmit} className="w-50">
                 <h1 className="text-center mb-4">{t('signup.header')}</h1>

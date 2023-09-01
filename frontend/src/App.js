@@ -18,7 +18,25 @@ import SocketContext from './context/SocketContext.jsx';
 import SignUp from './Components/SignUp.jsx';
 import routes from './routes.js';
 import resources from './locales/index.js';
-import sockets from './sockets';
+import sockets, { socket } from './sockets';
+import { addChannel, renameChannel, removeChannel } from './slices/chatSlice.js';
+import { addMessages } from './slices/messagesSlice.js';
+
+socket.on('newChannel', (payload) => {
+  store.dispatch(addChannel(payload));
+});
+
+socket.on('newMessage', (payload) => {
+  store.dispatch(addMessages(payload));
+});
+
+socket.on('renameChannel', (payload) => {
+  store.dispatch(renameChannel(payload));
+});
+
+socket.on('removeChannel', (payload) => {
+  store.dispatch(removeChannel(payload));
+});
 
 i18n.use(initReactI18next).init({
   resources,

@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
-import LoginImg from '../img/LoginImg.jpeg';
+import loginImg from '../img/loginImg.jpeg';
 
 const LoginPage = () => {
   const { logIn } = useAuth();
@@ -63,7 +63,7 @@ const LoginPage = () => {
           <Card className="shadow-sm">
             <Card.Body className="row p-5">
               <Col className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                <img className="rounded-circle" src={LoginImg} alt={t('login.header')} />
+                <img className="rounded-circle" src={loginImg} alt={t('login.header')} />
               </Col>
               <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
                 <h1 className="text-center mb-4">{t('login.header')}</h1>

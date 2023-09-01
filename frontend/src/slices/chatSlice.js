@@ -7,7 +7,7 @@ const chatSlice = createSlice({
   name: 'channelsInfo',
   initialState: {
     channels: [],
-    currentChannelId: 1,
+    currentChannelId: defaultChannelId,
   },
   reducers: {
     loadChannels(state, { payload }) {

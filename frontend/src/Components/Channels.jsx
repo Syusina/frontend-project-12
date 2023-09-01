@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import {
   Col,
   Button,
@@ -21,6 +21,10 @@ const Channels = () => {
   const renameChannel = (id) => () => dispatch(openModal({ type: 'renameChannel', id }));
   const removeChannel = (id) => () => dispatch(openModal({ type: 'removeChannel', id }));
   const bottom = useRef();
+
+  const channelsInEnd = useRef(null);
+  const scroll = () => channelsInEnd.current?.scrollIntoView({ behavior: 'auto' });
+  useEffect(() => scroll(), [channels]);
 
   return (
     <Col className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
@@ -73,6 +77,7 @@ const Channels = () => {
             </Button>
           </li>
         )))}
+        <div ref={channelsInEnd} />
         <li ref={bottom} />
       </ul>
     </Col>
