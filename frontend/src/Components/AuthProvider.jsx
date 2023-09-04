@@ -10,10 +10,7 @@ const AuthProvider = ({ children }) => {
     setUser(data);
   };
 
-  const logOut = () => {
-    localStorage.clear();
-    setUser(null);
-  };
+  const logOut = () => setUser(null);
 
   const auth = useMemo(() => ({ user, logIn, logOut }), [user, logIn, logOut]);
 
