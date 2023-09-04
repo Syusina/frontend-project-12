@@ -13,7 +13,6 @@ import { addChannel, renameChannel, removeChannel } from './slices/chatSlice.js'
 import { addMessages } from './slices/messagesSlice.js';
 import App from './App.js';
 
-
 const init = () => {
   socket.on('newChannel', (payload) => {
     store.dispatch(addChannel(payload));
